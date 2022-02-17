@@ -4,32 +4,60 @@ const { getHome } = require('./controllers/user_controllers');
 require('dotenv').config();
 const app = express();
 const port = process.env.PORT | 5050;
-const Arts = require('./models/Arts')
+const methodOverride = require('method-override');
+const User = require('./models/User');
+const Art = require('./models/Art')
+const ejsMate = require('ejs-mate');
+const session = require('express-session');
+const flash = require('express-flash');
+const path = require('path');
+const mongoose = require('mongoose');
+
+const passport = require('passport');
+const localStrategy = require('passport-local');
 
 // https://www.mongodb.com/languages/mern-stack-tutorial
 
+// routers
+const userRoutes = require('./routes/users')
+const artRoutes = require('./routes/arts')
+// session 
+sessionOptions = {
+    secret:'secret1234',
+    resave: false,
+    saveUninitialized: false,
+}
+app.use(session(sessionOptions))
+
+
+
+
+app.use(methodOverride('_method'));
 app.use(morgan('tiny'));
+app.use(express.urlencoded({extended:true}));
 app.use(express.json());
+app.use(express.static(path.resolve(__dirname,'public')));
+app.set('view engine', 'ejs');
+app.set('views', path.resolve(__dirname, 'views'));
+app.engine('ejs', ejsMate);
 
-app.get('/create', async(req, res)=>{
-    const newData = await Arts.create({
-        title: "Monalisa",
-        price: 2000
-    });
-    console.log(newData)
-    res.redirect('/');
-})
+// database connection
+async function connect(){
+    mongoose.connect(process.env.mongoURI);
+}
 
+connect().then(res=>console.log('DB connected'))
+    .catch(err=>console.log(err));
 
-app.get('/:user', getHome)
+// pass required stuff
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
 
-// create a dummy 
-
-app.get('/', async(req, res)=>{
-    const arts = await Arts.find();
-    res.json(arts);
-})
-
+app.use('/arts', artRoutes)
+app.use('/users', userRoutes)
 
 app.listen(port, ()=>{
     console.log(`app is running on port: ${port}`);

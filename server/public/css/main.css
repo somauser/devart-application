@@ -1,0 +1,28 @@
+
+body{
+    /* background-image: url('/images/620eadce00f6a.jpg'); */
+    background: #2e2e2e;
+}
+
+#join {
+    margin: 0 auto;
+    width: 800px;
+    height: 600px;
+}
+
+.join_banner {
+    background-color: #000;
+    color: white;
+    height: 100%;
+    /* background-image: url('/images/shinji.png'); */
+    /* background-size: cover; */
+    float: left;
+    width: 50%;
+}
+
+.join_form {
+    height: 100%;
+    width: 50%;
+    float: left;
+    background: #fff;
+}
