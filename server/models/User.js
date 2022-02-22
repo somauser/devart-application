@@ -9,7 +9,7 @@ const userSchema = new Schema({
         required: true,
         unique: true
     },
-    products: [
+    arts: [
         {
             type: Schema.Types.ObjectId,
             ref: 'Art'

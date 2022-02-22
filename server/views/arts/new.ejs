@@ -1,0 +1,27 @@
+<%- include('../partials/head') %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-2">
+            <form action="/arts" method="POST" >
+                <div class="form-group">
+                    <label for="title">title</label>
+                    <input type="text" name="title" class="form-control">
+                </div>
+                <!-- <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" name="password">
+                </div> -->
+                <!-- <div class="form-group">
+                    <label for="file">file</label>
+                    <input type="file" name="file" class="form-conrol">
+                </div> -->
+                <div class="form-group">
+                    <label for="location">location</label>
+                    <input type="text" class="form-control" name="location">
+                </div>
+                <button type="submit" class="btn btn-success my-4 px-3">Create</button>
+            </form>
+        </div>
+    </div>
+
+</div>
