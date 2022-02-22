@@ -9,13 +9,35 @@ const User = require('./models/User');
 const Art = require('./models/Art')
 const ejsMate = require('ejs-mate');
 const session = require('express-session');
-const flash = require('express-flash');
+const flash = require('connect-flash');
 const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const localStrategy = require('passport-local');
 const multer = require('multer')
+const multerS3 = require('multer-s3');
+const aws = require('aws-sdk');
 // https://www.mongodb.com/languages/mern-stack-tutorial
+
+// const s3 = new aws.S3({
+//     accessKeyId: process.env.S3_ACCESS_KEY,
+//     secretAccessKey: process.env.S3_SECRET_KEY,
+//     region: process.env.S3_BUCKET_REGION
+// })
+
+// const upload = multer({
+//     storage: multerS3({
+//         // s3 
+//         s3: s3,
+//         bucket: "dev-app-clone-994214",
+//         metadata: function (req, file, cb) {
+//             cb(null, {fieldName: file.fieldname});
+//           },
+//         key: function(req,file,cb){
+//             cb(null, file)
+//         }
+//     })
+// });
 
 // routers
 const userRoutes = require('./routes/users')
@@ -27,7 +49,7 @@ sessionOptions = {
     saveUninitialized: false,
 }
 app.use(session(sessionOptions))
-
+app.use(flash())
 
 // parse file from the form
 // multer({dest: ''});
@@ -57,6 +79,11 @@ passport.deserializeUser(User.deserializeUser())
 
 app.use('/arts', artRoutes)
 app.use('/users', userRoutes)
+
+app.get('/test', (req, res)=>{
+  res.render('test')  
+})
+
 
 app.listen(port, ()=>{
     console.log(`app is running on port: ${port}`);

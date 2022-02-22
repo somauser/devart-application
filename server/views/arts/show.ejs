@@ -1,7 +1,5 @@
 <%- layout('layouts/boilerplate')  %> 
 <h1>show page</h1>
-<!-- <p><%= user._id %></p>
-<% user.arts.forEach(art=> { %>
-    <p><%= art.title %> </p>
-    <p><%= art.location %> </p> -->
-<% }) %>
+    <h3><%= art.title %> </h3>
+    <p>Created by <%= art.user.username %></p>
+

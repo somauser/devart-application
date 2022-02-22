@@ -1,0 +1,8 @@
+<%- layout('layouts/boilerplate')  %> 
+<ul>
+    <% arts.forEach(art => { %>
+     <li><a href="/arts/<%= art._id %>"><%= art.title %></a></li>
+     <li><%= art.location %> </li>
+     <li><%= art.user %> </li>
+    <% }) %>
+</ul>

@@ -39,5 +39,6 @@ exports.loginForm = async(req, res)=>{
 }
 
 exports.login = async(req, res)=>{
+    req.flash('success', 'You are now logged in!')
     res.redirect('/arts');
 }

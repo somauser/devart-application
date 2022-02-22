@@ -14,10 +14,17 @@ const userSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Art'
         }
-    ]
+    ],
+    birtday: {
+        day: Number,
+        month: String,
+        year: Number
+    }
 });
 // This will add Username nad password to the schema and some methods to use for authentication 
 // username will be unique
 userSchema.plugin(passportLocalMongoose);
+
+// https://www.udemy.com/course/the-web-developer-bootcamp/learn/lecture/22117222#overview
 
 module.exports = mongoose.model('User', userSchema);
