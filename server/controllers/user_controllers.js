@@ -42,3 +42,9 @@ exports.login = async(req, res)=>{
     req.flash('success', 'You are now logged in!')
     res.redirect('/arts');
 }
+
+exports.logOut = async(req, res)=>{
+    req.logout();
+    // req.flash('success', 'Goodbye!');
+    res.redirect('/arts');
+}

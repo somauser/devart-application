@@ -38,12 +38,12 @@ const upload = multer({
 
 route.get('/', artControllers.getIndex)
 
-route.get('/new',artControllers.getNew);
+route.get('/new', auth.isLoggedin, artControllers.getNew);
 
 route.get('/:id', artControllers.showArts);
 
 // art is the name for the field
-route.post('/', /*auth.isLoggedin,*/ upload.single('art'), artControllers.postArt);
+route.post('/', auth.isLoggedin, upload.single('art'), artControllers.postArt);
 
 
 module.exports = route;

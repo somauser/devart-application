@@ -1,7 +1,8 @@
 
 body{
     /* background-image: url('/images/620eadce00f6a.jpg'); */
-    /* background: #2e2e2e; */
+    background: #06070d;
+    color: #fff;
 }
 
 #join {
@@ -21,6 +22,7 @@ body{
 }
 
 .join_form {
+    color: #000;
     height: 100%;
     width: 50%;
     float: left;

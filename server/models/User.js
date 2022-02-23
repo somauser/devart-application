@@ -19,7 +19,17 @@ const userSchema = new Schema({
         day: Number,
         month: String,
         year: Number
-    }
+    },
+    Bio: {
+        type: String
+    },
+    profession: [{
+        type: String
+    }],
+    country: {
+        type: String
+    },
+    
 });
 // This will add Username nad password to the schema and some methods to use for authentication 
 // username will be unique

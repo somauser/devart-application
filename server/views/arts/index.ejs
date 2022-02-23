@@ -1,8 +1,14 @@
 <%- layout('layouts/boilerplate')  %> 
-<ul>
-    <% arts.forEach(art => { %>
-     <li><a href="/arts/<%= art._id %>"><%= art.title %></a></li>
-     <li><%= art.location %> </li>
-     <li><%= art.user %> </li>
-    <% }) %>
-</ul>
+
+<div class="container">
+    <h3>Home</h3>
+    <div class="row">
+        <% arts.forEach(art => { %>
+            <div class="col-md-4">
+                <a href="/arts/<%= art._id %>">
+                    <img class="img-fluid" src="<%= art.imageURL.url %>" alt="">
+                </a>
+            </div>
+        <% }) %>
+    </div>
+</div>

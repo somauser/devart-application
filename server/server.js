@@ -51,6 +51,7 @@ sessionOptions = {
 app.use(session(sessionOptions))
 app.use(flash())
 
+
 // parse file from the form
 // multer({dest: ''});
 app.use(methodOverride('_method'));
@@ -76,6 +77,16 @@ app.use(passport.session());
 passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
+
+
+// set local var for res
+
+app.use((req, res, next)=>{
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    res.locals.signedUser = req.user;
+    next();
+})
 
 app.use('/arts', artRoutes)
 app.use('/users', userRoutes)

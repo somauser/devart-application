@@ -13,4 +13,6 @@ route.get('/login', userControllers.loginForm);
 
 route.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect:'/users/login'}), userControllers.login);
 
+route.get('/logout', (userControllers.logOut));
+
 module.exports = route;
