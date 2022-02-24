@@ -20,13 +20,12 @@ const artSchema = new mongoose.Schema({
     description: {
         type: String,
     },
-    
-    // comments: [
-    //     {
-    //         type: Schema.Types.ObjectId,
-    //         ref: 'Comment'
-    //     }
-    // ]
+    comments: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Comment'
+        }
+    ]
 }, { timestamps: true });
 
 const Arts = mongoose.model('Art', artSchema);

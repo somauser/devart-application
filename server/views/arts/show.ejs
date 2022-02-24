@@ -9,15 +9,42 @@
                 </div>
                 <div class="col-8">
                     <h5><%= art.title %></h5>
-                    <p>Created by: <%= art.user.username %></p>
+                    <p>Created by: <a href="/users/<%= art.user._id %>"><%= art.user.username %></a></p>
                 </div>
-                <div class="col-4">published: date</div>
+                <div class="col-4">published: <%= art.createdAt %></div>
                 <div class="col-12">
                     <h5>tags: </h5>
                 </div>
             </div>
             <p><%= art.description %></p>
+            <% if(!signedUser) { %> 
+                <h5>Please Log in to comment</h5>
+            <% } else { %>
+                <form action="/arts/<%= art._id %>/comments" method="POST">
+                    <div class="form-group">
+                        <label class='form-label' for="comment">Comment:</label>
+                        <br>
+                        <textarea name="comment" id="comment" cols="30" class="form-control" rows="4"></textarea>
+                        <button class="mt-3 btn btn-success">Comment</button>
+                    </div>
+                </form>
+              
+            <% }    %>  
             <p>Comments</p>
+            <div class="row comments">
+                <% comments.forEach(comment => { %>
+                    <div class="comment-body col-12">
+                        <div class="comment-body-user">
+                            <p><%= comment.user.username %></p>
+                        </div>
+                        <div class="comment-body-text">
+                            <p><%= comment.text %></p>
+                        </div>
+                    </div>
+                    <hr>
+                <% }) %>
+            </div>
+
         </div>
         <div class="col-md-4 text-center">
             <h5><a href="/users/<%= art.user._id %>">See More by <%= art.user.username %></a></h5>

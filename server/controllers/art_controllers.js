@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const Art = require('../models/Art');
+const Comment = require('../models/Comment');
 
 require('dotenv').config();
 const fontAwesomeSrc = process.env.fontAwesomeAPI;
@@ -33,12 +34,15 @@ exports.postArt = async (req, res, next)=>{
 
 exports.showArts = async (req, res)=>{
     const {id} = req.params 
-    const art = await Art.findById(id).populate('user');
+    const art = await Art.findById(id).populate('user').populate('comments');
+    const comments = await Comment.find({art: art}).populate('user');
     // get arts by user 
     // const arts = await Art.find({user: req.user.username});
     const user = await User.findById(art.user._id).populate('arts');
-    console.log(user.arts)
-    res.render('arts/show', {art, arts: user.arts});
+    // console.log(user.arts)
+    // console.log(await art.comments[0].populate('user'))
+    console.log(comments);
+    res.render('arts/show', {art, arts: user.arts, comments});
     // res.send(art)
 }
 

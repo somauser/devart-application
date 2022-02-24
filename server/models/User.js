@@ -15,13 +15,24 @@ const userSchema = new Schema({
             ref: 'Art'
         }
     ],
-    birtday: {
+    comments: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Comment'
+        }
+    ],
+    DOB: {
         day: Number,
         month: String,
         year: Number
     },
     Bio: {
-        type: String
+        text: {
+            type: String
+        }, 
+        profileImage: {
+            type: String
+        }
     },
     profession: [{
         type: String
@@ -30,7 +41,7 @@ const userSchema = new Schema({
         type: String
     },
     
-});
+}, { timestamps: true });
 // This will add Username nad password to the schema and some methods to use for authentication 
 // username will be unique
 userSchema.plugin(passportLocalMongoose);

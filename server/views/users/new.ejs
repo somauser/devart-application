@@ -38,19 +38,19 @@
             <div class="form-group">
                 <label for="DOB">Date of Birth</label>
                 <div class="form-inline">
-                    <select name="DOB_month" id="month">
+                    <select name="DOB[month]" id="month">
                         <% months.forEach(month => { %>
                          <option value="<%= month %>"><%= month %></option>
                         <% }) %>
                     </select>
-                    <select name="DOB_date" id="date" class="mx-3">
+                    <select name="DOB[day]" id="day" class="mx-3">
                         <% for(var i = 1; i <= 31; i++) {%>
-                        <option value="<%= i %>"><%= i %> </option>
+                        <option value="<%= i %>"><%= i %></option>
                             <% } %>  
                     </select>
-                    <select name="DOB_year" id="year">
+                    <select name="DOB[year]" id="year">
                         <% for(var i = 2020; i >= 1900; i--) {%>
-                            <option value="<%= i %>"><%= i %> </option>
+                            <option value="<%= i %>"><%= i %></option>
                                 <% } %>  
                     </select>
                 </div>

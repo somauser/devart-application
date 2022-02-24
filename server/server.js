@@ -17,6 +17,7 @@ const localStrategy = require('passport-local');
 const multer = require('multer')
 const multerS3 = require('multer-s3');
 const aws = require('aws-sdk');
+var favicon = require('serve-favicon')
 // https://www.mongodb.com/languages/mern-stack-tutorial
 
 // const s3 = new aws.S3({
@@ -51,7 +52,8 @@ sessionOptions = {
 app.use(session(sessionOptions))
 app.use(flash())
 
-
+// setting favicom
+app.use(favicon(path.join(__dirname, 'public','images','favicon.ico')))
 // parse file from the form
 // multer({dest: ''});
 app.use(methodOverride('_method'));
@@ -59,6 +61,7 @@ app.use(morgan('tiny'));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname,'public')));
+// app.use(express.static(path.join(__dirname,'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'views'));
 app.engine('ejs', ejsMate);

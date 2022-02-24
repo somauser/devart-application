@@ -28,3 +28,39 @@ body{
     float: left;
     background: #fff;
 }
+
+/* comments */
+.comments {
+    color: #000;
+    background: #fff;
+}
+
+.comments-body {
+    border: #000 2px solid;
+}
+
+
+
+
+
+/* /users/:id */
+.cover-image {
+    height: 300px;
+    background-color: white;
+    color: #000;
+    position: relative;
+}
+
+.user-container {
+    position: absolute;
+    top:60%;
+}
+
+.user-profile-img {
+    float: left;
+    width: 100px;
+}
+
+.user-profile-text {
+    float: left;
+}
