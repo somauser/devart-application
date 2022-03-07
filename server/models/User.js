@@ -31,7 +31,8 @@ const userSchema = new Schema({
             type: String
         }, 
         profileImage: {
-            type: String
+                url: String,
+                filename: String,
         }
     },
     profession: [{

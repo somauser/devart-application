@@ -53,7 +53,7 @@ exports.showArts = async (req, res)=>{
 
 // 'GET /arts'
 exports.getIndex = async(req, res)=>{
-    const arts = await Art.find({}).populate('user');
+    const arts = await Art.find({}).populate('user').sort({_id:-1}).limit(6);
     res.render('arts/index', {arts});
     // res.send(arts[1].user.username)
 }

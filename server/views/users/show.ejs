@@ -2,7 +2,7 @@
 <div class="jumbotron cover-image" style="background-image: url('/images/favicon.png');">
     <div class="container">
         <div class="user-container">
-            <img src="/images/favicon.png" alt="" class="user-profile-img">
+            <img src="<%= user.Bio.profileImage.url %>" alt="" class="user-profile-img">
             <div class="user-profile-text my-5">
                 <h3><%= user.username.toUpperCase() %> </h3>
             </div>
@@ -13,7 +13,7 @@
 <section class="container">
     <div class="row my-5">
         <div class="col-md-8">
-            <p class="display-5">Paintings by <%= user.usernames %></p>
+            <p class="display-5">Paintings by <%= user.username %></p>
             <div class="row">
                 <% arts.forEach(art => { %>
                     <div class="col-sm-4">
@@ -27,8 +27,8 @@
 
         </div>
         <div class="col-md-4">
-            <h5>My Bio</h5>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis officia est hic illo ipsam natus voluptas voluptatem accusamus beatae perferendis reprehenderit tempora facere omnis cupiditate rem dignissimos, deleniti a quidem!</p>
+            <h5>Bio</h5>
+            <p><%= user.Bio.text %></p>
         </div>
     </div>
 </section>

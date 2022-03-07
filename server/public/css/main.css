@@ -68,11 +68,11 @@ width: 100%;
     font-size: 1.5em;
 }
 
-#join {
+/* #join {
     margin: 0 auto;
     width: 800px;
     height: 600px;
-}
+} */
 
 .join_banner {
     background-color: #000;
@@ -90,6 +90,14 @@ width: 100%;
     width: 50%;
     float: left;
     background: #fff;
+}
+
+#join a {
+    color: #fff;
+}
+
+#join a:hover{
+    color: aqua;
 }
 
 /* comments */

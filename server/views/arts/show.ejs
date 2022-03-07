@@ -42,7 +42,7 @@
                 <% comments.forEach(comment => { %>
                     <div class="comment-body col-12">
                         <div class="comment-body-user">
-                            <p><%= comment.user.username %></p>
+                            <p><img src="<%= comment.user.Bio.profileImage.url %>" style="width: 30px; height: 30px;" alt=""><%= comment.user.username %></p>
                         </div>
                         <div class="comment-body-text">
                             <p><%= comment.text %></p>
