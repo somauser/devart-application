@@ -11,7 +11,7 @@ const aws = require('aws-sdk');
 // https://www.mongodb.com/languages/mern-stack-tutorial
 const Comment = require('../models/Comment');
 const User = require('../models/User');
-const { findByIdAndUpdate } = require('../models/User');
+const { findByIdAndUpdate, findById } = require('../models/User');
 // https://www.youtube.com/watch?v=s1Tu0yKmDKU add public policy
 
 const s3AccessKey = process.env.S3_ACCESS_KEY
@@ -45,6 +45,19 @@ route.get('/', artControllers.getIndex)
 // GET /arts/new
 route.get('/new', auth.isLoggedin, artControllers.getNew);
 
+
+// test deleteing 
+route.get('/test', async(req, res)=>{
+  
+  const user = await User.findById('6212ee4433f6875e8f4450d2')
+  user.arts.pull('6225ac69958158f26d8f69ca');
+  await user.save();
+  // User.findByIdAndUpdate('6212ee4433f6875e8f4450d2', { 
+  //   $pull:{arts: {_id: '6225ac69958158f26d8f69ca'}}
+  // }, {new: true});
+  res.send(user);
+})
+
 // GET /arts/:id
 route.get('/:id', artControllers.showArts);
 
@@ -58,24 +71,83 @@ route.get('/:id/edit', async(req, res)=>{
 });
 
 // POST /arts/:id
-route.post('/:id', auth.isLoggedin, upload.single('art'), async(req, res)=>{
-    // res.send('it worked')
-    try{
-      console.log(req.body);
-      const {id} = req.params;
-      const {title, description} = req.body;
-      const art = await Arts.findByIdAndUpdate(id, {
-          title,
-          description
-      });
-      const savedArt = await art.save();
-      res.redirect(`/arts/${id}`)
-    } catch(err) {
-      console.log('err' + err);
-      res.status(500).send(err);
-    }
+// route.post('/:id', auth.isLoggedin, upload.single('art'), async(req, res)=>{
+//     // res.send('it worked')
+//     try{
+//       console.log(req.body);
+//       const {id} = req.params;
+//       const {title, description} = req.body;
+//       const art = await Arts.findByIdAndUpdate(id, {
+//           title,
+//           description
+//       });
+//       const savedArt = await art.save();
+//       res.redirect(`/arts/${id}`)
+//     } catch(err) {
+//       console.log('err' + err);
+//       res.status(500).send(err);
+//     }
+// })
 
+// check if the signedUser is the owner of the painting
+// if yes updated
+// if not res.send(401) status
+route.put('/:id', auth.isLoggedin, upload.single('art'), async(req, res)=>{
+  try {
+    // console.log(req.body);
+    const {id} = req.params;
+    const {title, description} = req.body;
+    const art = await Arts.findById(id);
+    // console.log(req.user);
+    if(!art.user.equals(req.user._id)){
+      // console.log('hi')
+      res.flash('error', 'You do not have the permission!');
+      return res.send('error')
+    }
+    const updatedArt = await Arts.findByIdAndUpdate(id, {
+      title,
+      description
+    });
+    // if the file input is not empty
+    if(req.file){
+      updatedArt.imageURL.url = req.file.location,
+      updatedArt.imageURL.filename = req.file.key
+    }
+    // add it to the user 
+    await updatedArt.save();
+    res.redirect(`/arts/${id}`);
+  } catch(err) {
+    console.log('err' + err);
+    res.send('500');
+  }
 })
+
+// DELETE 
+route.delete('/:id', auth.isLoggedin, async(req, res)=>{
+  try{
+      const {id} = req.params
+      const art = await Arts.findById(id);
+      console.log(req.user);
+      
+      if(!art.user.equals(req.user._id)){
+      // console.log('hi')
+      // res.flash('error', 'You do not have the permission!');
+      return res.send('no permission')
+    }
+    // if the signedIn user is the owner. delete it
+    // delete art
+      const deletedArt = await Arts.findOneAndDelete({_id:id});
+      // delete art from user.arts
+      const user = await User.findById(art.user._id);
+      user.arts.pull(art._id);
+      await user.save();
+      res.redirect('/arts')
+  } catch(err){
+    console.log(err)
+    res.send('error')
+  }
+})
+
 
 
 // POST /arts

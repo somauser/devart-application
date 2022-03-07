@@ -1,22 +1,29 @@
 <%- layout('layouts/boilerplate')  %> 
-<section class="art container mt-5">
+<section class="art__container container mt-5">
     <div class="row">
         <div class="col-md-8">
             <img class='img-fluid'src="<%= art.imageURL.url %>" alt="">
-            <div class="row">
-                <div class="col-12">
-                    blah blah blah 
-                </div>
+            <div class="row mt-3">
                 <div class="col-8">
                     <h5><%= art.title %></h5>
                     <p>Created by: <a href="/users/<%= art.user._id %>"><%= art.user.username %></a></p>
+                    <p><%= art.description %></p>
                 </div>
                 <div class="col-4">published: <%= art.createdAt %></div>
                 <div class="col-12">
                     <h5>tags: </h5>
                 </div>
+                <!-- sugnedUser is the currentUser check if there is a signed user and if the user is the owner-->
+                <% if(signedUser && art.user.equals(signedUser._id))  {%> 
+                <div class="col-12 d-inline">
+                    <a href="/arts/<%= art._id %>/edit" class="btn btn-success">Edit</a>
+                    <form action="/arts/<%= art._id %>?_method=DELETE" class="d-inline" method="POST">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+                <%   } %>
             </div>
-            <p><%= art.description %></p>
+            
             <% if(!signedUser) { %> 
                 <h5>Please Log in to comment</h5>
             <% } else { %>
@@ -51,7 +58,7 @@
             <div class="row">
                 <% arts.forEach(art => { %>
                     <div class="col-4">
-                        <img src="<%= art.imageURL.url %>" alt="" class="img-fluid">
+                        <a href="/arts/<%= art._id %>"><img src="<%= art.imageURL.url %>" alt="" class="img-fluid"></a>
                     </div>
                 <% }) %>
             </div>

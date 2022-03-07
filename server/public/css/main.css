@@ -8,6 +8,66 @@ body{
     padding-bottom: 4em;
 }
 
+/* position relative so we can position overlay to absolute */
+.art {
+    max-height: 400px;
+    position: relative;
+    padding: 0;
+}
+
+.art__overlay__link {
+    /* display: block; */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* z-index: 2; */
+}
+
+.art__painting {
+    max-height: 100%;
+}
+
+/* positioning the overlay on top of the art container */
+/* overlay is 0 by default and will be 1 when hovered */
+.art__overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    opacity: 0;
+    color: #fff;
+}
+
+
+.art__overlay:hover {
+    opacity: 1;
+}
+
+.art__overlay__content{
+    width: 100%;
+    padding: 1em 1.5em;
+    position: absolute;
+    /* bottom: 0; */
+    /* text-align: center; */
+}
+.art__creater{
+float: left;
+width: 100%;
+}
+
+.art__comments__count{
+    /* float: right; */
+    margin-left: 5em;
+}
+
+.art__title {
+    font-size: 1.5em;
+}
+
 #join {
     margin: 0 auto;
     width: 800px;
@@ -73,6 +133,7 @@ footer {
     bottom: 0;
     width: 100%;
     height: 4em;
+    margin: auto;
 }
 
 .social {

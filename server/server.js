@@ -98,6 +98,11 @@ app.get('/test', (req, res)=>{
   res.render('test')  
 })
 
+// Handling non matching request
+app.use((req, res, next) => {
+    res.status(404).render('404')
+  })
+
 
 app.listen(port, ()=>{
     console.log(`app is running on port: ${port}`);
