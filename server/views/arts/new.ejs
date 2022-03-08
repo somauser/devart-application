@@ -19,10 +19,25 @@
                 <div class="form-group mt-3">
                     <label for="description">Description:</label>
                     <br>
-                    <textarea name="description" id="description" cols="30" rows="10" class="form-cotrol"></textarea>
+                    <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
+                </div>
+                <div class="form-group mt-3">
+                    <label for="tags">Tags:</label>
+                    <input type="text" name="tags" id="tags"  class="form-control"/>
                 </div>
                 <button type="submit" class="btn btn-success my-4 px-3">Create</button>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    let tagInput = document.querySelector('#tags');
+        tagify = new Tagify(tagInput);
+        tagInput.addEventListener('change', onChange)
+        function onChange(e){
+            // outputs a string
+            // [{"value":"landscape"}, {"value", "anime"}]
+            console.log(e.target.value)
+        }
+</script>

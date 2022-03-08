@@ -12,18 +12,24 @@ exports.getNew = async (req, res)=>{
 
 exports.postArt = async (req, res, next)=>{
     // access user info from session
-    const {title, description} = req.body;
+    const {title, description, tags} = req.body;
     // const {name, price} = req.body;
     const user = await User.findById(req.user._id);
     const art = new Art({
         title,
-        description
+        description,
     });
+    // tags is an array with object containing value key
+    console.log(req.body);
     art.imageURL.url = req.file.location,
     art.imageURL.filename = req.file.key
     // add it to the user 
     user.arts.push(art);
     art.user = user;
+    // adding tags to tags
+    tags.forEach((tag)=>{
+        console.log(tag.value);
+    })
     await user.save();
     await art.save();
     // console.log(req.body, req.file);

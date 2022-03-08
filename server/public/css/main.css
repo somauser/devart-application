@@ -15,6 +15,11 @@ body{
     padding: 0;
 }
 
+.art__painting{
+    object-fit: cover;
+    width: 100%;
+}
+
 .art__overlay__link {
     /* display: block; */
     position: absolute;
