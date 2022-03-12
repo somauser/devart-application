@@ -11,7 +11,10 @@
                 </div>
                 <div class="col-4">published: <%= art.createdAt %></div>
                 <div class="col-12">
-                    <h5>tags: </h5>
+                    <h5>tags: <% art.meta.tags.forEach((tag)=> {%>
+                    <a href="/arts?q=<%= tag %>"><span><%= tag %></span></a>
+                    <% })%> 
+                    </h5>
                 </div>
                 <!-- sugnedUser is the currentUser check if there is a signed user and if the user is the owner-->
                 <% if(signedUser && art.user.equals(signedUser._id))  {%> 

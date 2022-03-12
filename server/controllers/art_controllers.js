@@ -20,20 +20,25 @@ exports.postArt = async (req, res, next)=>{
         description,
     });
     // tags is an array with object containing value key
-    console.log(req.body);
+    // console.log(req.body);
     art.imageURL.url = req.file.location,
     art.imageURL.filename = req.file.key
     // add it to the user 
     user.arts.push(art);
     art.user = user;
     // adding tags to tags
-    tags.forEach((tag)=>{
-        console.log(tag.value);
-    })
+    tags_list = JSON.parse(tags);
+    console.log(tags_list);
+    if(tags_list){
+        tags_list.forEach((tag)=>{
+            art.meta.tags.push(tag.value)
+            console.log(tag.value);
+        })
+    }
     await user.save();
     await art.save();
     // console.log(req.body, req.file);
-    // console.log(art);
+    console.log(art);
     res.redirect(`/arts/${art._id}`);
     // res.send(req.body);
 }

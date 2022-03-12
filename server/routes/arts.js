@@ -71,23 +71,23 @@ route.get('/:id/edit', async(req, res)=>{
 });
 
 // POST /arts/:id
-route.post('/:id', auth.isLoggedin, upload.single('art'), async(req, res)=>{
-    // res.send('it worked')
-    try{
-      console.log(req.body);
-      const {id} = req.params;
-      const {title, description} = req.body;
-      const art = await Arts.findByIdAndUpdate(id, {
-          title,
-          description
-      });
-      const savedArt = await art.save();
-      res.redirect(`/arts/${id}`)
-    } catch(err) {
-      console.log('err' + err);
-      res.status(500).send(err);
-    }
-})
+// route.post('/:id', auth.isLoggedin, upload.single('art'), async(req, res)=>{
+//     // res.send('it worked')
+//     try{
+//       console.log(req.body);
+//       const {id} = req.params;
+//       const {title, description} = req.body;
+//       const art = await Arts.findByIdAndUpdate(id, {
+//           title,
+//           description
+//       });
+//       const savedArt = await art.save();
+//       res.redirect(`/arts/${id}`)
+//     } catch(err) {
+//       console.log('err' + err);
+//       res.status(500).send(err);
+//     }
+// })
 
 // check if the signedUser is the owner of the painting
 // if yes updated

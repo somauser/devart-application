@@ -3,7 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const { getHome } = require('./controllers/user_controllers');
 const app = express();
-const port = process.env.PORT | 5050;
+const port = process.env.PORT | 7098;
 const methodOverride = require('method-override');
 const User = require('./models/User');
 const Art = require('./models/Art')
@@ -17,7 +17,7 @@ const localStrategy = require('passport-local');
 const multer = require('multer')
 const multerS3 = require('multer-s3');
 const aws = require('aws-sdk');
-var favicon = require('serve-favicon')
+var favicon = require('serve-favicon');
 // https://www.mongodb.com/languages/mern-stack-tutorial
 
 // const s3 = new aws.S3({
