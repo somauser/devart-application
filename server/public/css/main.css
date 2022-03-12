@@ -115,7 +115,15 @@ width: 100%;
     border: #000 2px solid;
 }
 
+.img__container {
+    width: 100%;
+    background: rgb(50, 50, 50); 
+    padding:20px;
+}
 
+.img__container img {
+    text-align: center;
+}
 
 
 

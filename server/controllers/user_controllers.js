@@ -24,10 +24,12 @@ exports.createUser = async(req, res)=>{
             username,
             DOB,
         });
+        // test
+        user.Bio.profileImage.url = 'https://dev-app-clone-994214.s3.amazonaws.com/1646642994810__cat.jpg'
         console.log(DOB);
         const registeredUser = await User.register(user, password);
         console.log(registeredUser);
-        // res.send(registeredUser);
+        // res.send(registeredUser);c
         await registeredUser.save();
         // console.log(user);
         res.redirect('/users/login')
