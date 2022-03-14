@@ -18,37 +18,17 @@ const multer = require('multer')
 const multerS3 = require('multer-s3');
 const aws = require('aws-sdk');
 var favicon = require('serve-favicon');
-// https://www.mongodb.com/languages/mern-stack-tutorial
-
-// const s3 = new aws.S3({
-//     accessKeyId: process.env.S3_ACCESS_KEY,
-//     secretAccessKey: process.env.S3_SECRET_KEY,
-//     region: process.env.S3_BUCKET_REGION
-// })
-
-// const upload = multer({
-//     storage: multerS3({
-//         // s3 
-//         s3: s3,
-//         bucket: "dev-app-clone-994214",
-//         metadata: function (req, file, cb) {
-//             cb(null, {fieldName: file.fieldname});
-//           },
-//         key: function(req,file,cb){
-//             cb(null, file)
-//         }
-//     })
-// });
 
 // routers
 const userRoutes = require('./routes/users')
 const artRoutes = require('./routes/arts')
 // session 
 sessionOptions = {
-    secret:process.env.secret,
     resave: false,
     saveUninitialized: false,
+    secret:'sadasfaf',
 }
+
 app.use(session(sessionOptions))
 app.use(flash())
 
@@ -84,6 +64,7 @@ passport.deserializeUser(User.deserializeUser())
 
 // set local var for res
 
+// store the signedUser 
 app.use((req, res, next)=>{
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');

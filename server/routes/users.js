@@ -38,7 +38,7 @@ route.get('/new', userControllers.getNew);
 route.post('/', userControllers.createUser);
 
 
-route.get('/login', userControllers.loginForm);
+route.get('/login', userControllers.getLogin);
 
 route.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect:'/users/login'}), userControllers.login);
 

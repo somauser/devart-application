@@ -9,8 +9,120 @@ body{
 }
 
 /* position relative so we can position overlay to absolute */
+
+/* #join {
+    margin: 0 auto;
+    width: 800px;
+    height: 600px;
+} */
+
+.join_banner {
+    background-color: #000;
+    color: white;
+    height: 100%;
+    /* background-image: url('/images/shinji.png'); */
+    /* background-size: cover; */
+    float: left;
+    width: 50%;
+}
+
+.join_form {
+    color: #000;
+    height: 100%;
+    width: 50%;
+    float: left;
+    background: #fff;
+}
+
+#join a {
+    color: #fff;
+}
+
+#join a:hover{
+    color: aqua;
+}
+
+/* comments */
+.comments {
+    color: #000;
+    background: #fff;
+}
+
+.comments-body {
+    border: #000 2px solid;
+}
+
+.img__container {
+    width: 100%;
+    background: rgb(50, 50, 50); 
+    padding:20px;
+}
+
+
+
+
+/* /users/:id */
+.cover-image {
+    height: 300px;
+    background-color: white;
+    color: #000;
+    position: relative;
+}
+
+.user-container {
+    position: absolute;
+    top:60%;
+}
+
+.user-profile-img {
+    float: left;
+    width: 100px;
+}
+
+.user-profile-text {
+    float: left;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 4em;
+    margin: auto;
+}
+
+.social {
+    font-size: 2em;
+}
+
+.social-item {
+    display: inline-block;
+    margin: 0 1em;
+    color: #fff;
+}
+
+.social-item a {
+    color: #fff;
+}
+
+.social-item a:hover {
+    color:#777;
+}
+
+
+.grid {}
+
+/* Masonry */
+.grid-item { 
+    width: 300px; 
+    margin: 5px;
+}
+
+.grid-item img {
+    border-radius: 30px; 
+}
+
 .art {
-    max-height: 400px;
     position: relative;
     padding: 0;
 }
@@ -71,106 +183,4 @@ width: 100%;
 
 .art__title {
     font-size: 1.5em;
-}
-
-/* #join {
-    margin: 0 auto;
-    width: 800px;
-    height: 600px;
-} */
-
-.join_banner {
-    background-color: #000;
-    color: white;
-    height: 100%;
-    /* background-image: url('/images/shinji.png'); */
-    /* background-size: cover; */
-    float: left;
-    width: 50%;
-}
-
-.join_form {
-    color: #000;
-    height: 100%;
-    width: 50%;
-    float: left;
-    background: #fff;
-}
-
-#join a {
-    color: #fff;
-}
-
-#join a:hover{
-    color: aqua;
-}
-
-/* comments */
-.comments {
-    color: #000;
-    background: #fff;
-}
-
-.comments-body {
-    border: #000 2px solid;
-}
-
-.img__container {
-    width: 100%;
-    background: rgb(50, 50, 50); 
-    padding:20px;
-}
-
-.img__container img {
-    text-align: center;
-}
-
-
-
-/* /users/:id */
-.cover-image {
-    height: 300px;
-    background-color: white;
-    color: #000;
-    position: relative;
-}
-
-.user-container {
-    position: absolute;
-    top:60%;
-}
-
-.user-profile-img {
-    float: left;
-    width: 100px;
-}
-
-.user-profile-text {
-    float: left;
-}
-
-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 4em;
-    margin: auto;
-}
-
-.social {
-    font-size: 2em;
-}
-
-.social-item {
-    display: inline-block;
-    margin: 0 1em;
-    color: #fff;
-}
-
-.social-item a {
-    color: #fff;
-}
-
-.social-item a:hover {
-    color:#777;
 }

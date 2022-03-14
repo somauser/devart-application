@@ -2,28 +2,29 @@
 
 <div class="container">
     <h3>Home</h3>
+    <%- include('../partials/flash')  %> 
     <div class="row">
-        <% arts.forEach(art => { %>
-            <div class="col-md-4 art">
+        <div class="grid">
+            <% arts.forEach(art => { %>
+                <div class="grid-item art">
                     <img class="img-fluid art__painting" src="<%= art.imageURL.url %>" alt="">
-                <!-- <a href="/arts/<%= art._id %>" class="art__overlay__link">-->
-                <a href="/arts/<%= art._id %>">
-                <div class="art__overlay">
-                    <div class="art__overlay__content">
-                        <div class="art__title"><%= art.title %></div>
-                        <div class="art__creater">
-                            <img src="<%= art.user.Bio.profileImage.url %>" alt="" width="50px">
-                            
-                            <%= art.user.username %>
-                         
+                    <div class="art__overlay">
+                        <div class="art__overlay__content">
+                            <div class="art__title"><%= art.title %></div>
+                            <div class="art__creater">
+                                <img src="<%= art.user.Bio.profileImage.url %>" alt="" width="50px">    
+                                <%= art.user.username %>
+                                
+                            </div>
                             <span class="art__comments__count">
                                 <i class="bi bi-chat"></i> <%= art.comments.length %>
                             </span>
                         </div>
                     </div>
-                </div>
-            </a> 
-            </div>
-        <% }) %>
+                </div> 
+            <% }) %>
+        </div>
     </div>
 </div>
+
+
