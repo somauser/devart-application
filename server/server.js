@@ -22,11 +22,12 @@ var favicon = require('serve-favicon');
 // routers
 const userRoutes = require('./routes/users')
 const artRoutes = require('./routes/arts')
+const apisArtRoutes = require('./routes/apis_arts');
 // session 
 sessionOptions = {
     resave: false,
     saveUninitialized: false,
-    secret:'sadasfaf',
+    secret:process.env.secret,
 }
 
 app.use(session(sessionOptions))
@@ -72,8 +73,9 @@ app.use((req, res, next)=>{
     next();
 })
 
-app.use('/arts', artRoutes)
-app.use('/users', userRoutes)
+app.use('/arts', artRoutes);
+app.use('/users', userRoutes);
+app.use('/apis/arts', apisArtRoutes);
 
 app.get('/test', (req, res)=>{
   res.render('test')  

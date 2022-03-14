@@ -1,0 +1,5 @@
+apisArtsControllers = {
+
+}
+
+module.exports = apisArtsControllers;

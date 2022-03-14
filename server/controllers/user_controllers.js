@@ -72,7 +72,7 @@ exports.updateUser = async(req, res)=>{
     try{
         const {id} = req.params
         const {profileImage, bio} = req.body
-
+        const user = await User.findById(id);
       if(req.file){
         user.Bio.profileImage.url = req.file.location,
         user.Bio.profileImage.filename = req.file.key
