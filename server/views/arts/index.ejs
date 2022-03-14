@@ -3,9 +3,9 @@
 <div class="container">
     <h3>Home</h3>
     <%- include('../partials/flash')  %> 
-    <div class="row">
         <div class="grid">
             <% arts.forEach(art => { %>
+                <a href="/arts/<%= art._id %>">
                 <div class="grid-item art">
                     <img class="img-fluid art__painting" src="<%= art.imageURL.url %>" alt="">
                     <div class="art__overlay">
@@ -22,9 +22,9 @@
                         </div>
                     </div>
                 </div> 
+            </a>
             <% }) %>
         </div>
-    </div>
 </div>
 
 

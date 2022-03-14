@@ -84,8 +84,9 @@ body{
 }
 
 footer {
+    padding: 3em;
     position: absolute;
-    bottom: 0;
+    bottom: -100px;
     width: 100%;
     height: 4em;
     margin: auto;
@@ -110,7 +111,10 @@ footer {
 }
 
 
-.grid {}
+.grid {
+    width: 100%;
+    margin: 0 auto;
+}
 
 /* Masonry */
 .grid-item { 
@@ -184,3 +188,16 @@ width: 100%;
 .art__title {
     font-size: 1.5em;
 }
+
+.grid-item-show {
+    width: 200px;
+    padding: 10px;
+}
+
+
+@media only screen and (max-width: 1500px) {
+    footer {
+      display: none;
+    }
+  }
+  
