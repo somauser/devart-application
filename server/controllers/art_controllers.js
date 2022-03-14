@@ -11,6 +11,8 @@ exports.getNew = async (req, res)=>{
 }
 
 exports.postArt = async (req, res, next)=>{
+    try {
+
     // access user info from session
     const {title, description, tags} = req.body;
     // const {name, price} = req.body;
@@ -42,6 +44,10 @@ exports.postArt = async (req, res, next)=>{
     req.flash('success', 'Successfully posted art')
     res.redirect(`/arts/${art._id}`);
     // res.send(req.body);
+  } catch(err){
+    console.log(err);
+    res.render('500');
+  }
 }
 
 exports.showArts = async (req, res)=>{
@@ -65,8 +71,15 @@ exports.showArts = async (req, res)=>{
 
 // 'GET /arts'
 exports.getIndex = async(req, res)=>{
+    if(req.query.q){
+      const {q} = req.query;
+      // console.log(q)
+      const arts = await Art.find({"meta.tags": q}).populate('user').sort({_id:-1}).limit(12);
+      res.render('arts/index', {arts, q: req.query.q});
+      console.log(arts);
+    }
     const arts = await Art.find({}).populate('user').sort({_id:-1}).limit(12);
-    res.render('arts/index', {arts});
+    res.render('arts/index', {arts, q: req.query.q});
     // res.send(arts[1].user.username)
 }
 
@@ -75,7 +88,7 @@ exports.createComment = async (req, res)=>{
     const {id} = req.params;
     // const user_id = req.user._id;
     const user = await User.findById(req.user._id);
-    const art = await Arts.findById(id);
+    const art = await Art.findById(id);
     const comment = new Comment({
       text: req.body.comment
     });
@@ -94,42 +107,27 @@ exports.createComment = async (req, res)=>{
 
 exports.deleteArts =  async(req, res)=>{
     try{
-        const {id} = req.params
-        const art = await Arts.findById(id);
-        console.log(req.user);
-        
-        if(!art.user.equals(req.user._id)){
-        // console.log('hi')
-        // res.flash('error', 'You do not have the permission!');
-        return res.send('no permission')
-      }
+      const {id} = req.params;
       // if the signedIn user is the owner. delete it
       // delete art
-        const deletedArt = await Arts.findOneAndDelete({_id:id});
+        const deletedArt = await Art.findOneAndDelete({_id:id});
         // delete art from user.arts
-        const user = await User.findById(art.user._id);
-        user.arts.pull(art._id);
+        const user = await User.findById(deletedArt.user._id);
+        user.arts.pull(deletedArt._id);
         await user.save();
         res.redirect('/arts')
     } catch(err){
       console.log(err)
-      res.send('error')
+      res.render('500')
     }
   }
 
-  exports.editArts = async(req, res)=>{
+  exports.putArts = async(req, res)=>{
     try {
-      // console.log(req.body);
       const {id} = req.params;
-      const {title, description} = req.body;
-      const art = await Arts.findById(id);
-      // console.log(req.user);
-      if(!art.user.equals(req.user._id)){
-        // console.log('hi')
-        res.flash('error', 'You do not have the permission!');
-        return res.send('error')
-      }
-      const updatedArt = await Arts.findByIdAndUpdate(id, {
+      // console.log(req.body);
+      const {title, description, tags} = req.body;
+      const updatedArt = await Art.findByIdAndUpdate(id, {
         title,
         description
       });
@@ -138,18 +136,31 @@ exports.deleteArts =  async(req, res)=>{
         updatedArt.imageURL.url = req.file.location,
         updatedArt.imageURL.filename = req.file.key
       }
-      // add it to the user 
+      // adding tags to tags
+      // resetting the tag field
+      await Art.findByIdAndUpdate({_id: id}, {$set: {meta: {tags: []}}});
+      // adding items to the tag field
+      if(tags.length > 0){
+        tags_list = JSON.parse(tags);
+        console.log(tags_list);
+        if(tags_list){
+          tags_list.forEach((tag)=>{
+            updatedArt.meta.tags.push(tag.value)
+              console.log(tag.value);
+          })
+      }
+      }
       await updatedArt.save();
       res.redirect(`/arts/${id}`);
     } catch(err) {
       console.log('err' + err);
-      res.send('500');
+      res.render('500');
     }
   }
 
   exports.getEditArtsPage = async(req, res)=>{
     const {id} = req.params;
-    const art = await Arts.findById(id);
+    const art = await Art.findById(id);
     // res.send(art);
     console.log(art);
     res.render('arts/edit', {art})

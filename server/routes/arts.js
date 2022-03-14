@@ -62,7 +62,7 @@ route.get('/test', async(req, res)=>{
 route.get('/:id', artControllers.showArts);
 
 // GET /arts/:id/edit
-route.get('/:id/edit', artControllers.getEditArtsPage);
+route.get('/:id/edit', auth.isAuthor, artControllers.getEditArtsPage);
 
 // POST /arts/:id
 // route.post('/:id', auth.isLoggedin, upload.single('art'), async(req, res)=>{
@@ -86,7 +86,7 @@ route.get('/:id/edit', artControllers.getEditArtsPage);
 // check if the signedUser is the owner of the painting
 // if yes updated
 // if not res.send(401) status
-route.put('/:id', auth.isLoggedin, upload.single('art'), artControllers.editArts);
+route.put('/:id', auth.isLoggedin, upload.single('art'), auth.isAuthor, artControllers.putArts);
 
 // DELETE 
 route.delete('/:id', auth.isLoggedin, artControllers.deleteArts);

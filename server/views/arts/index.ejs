@@ -1,7 +1,7 @@
 <%- layout('layouts/boilerplate')  %> 
 
 <div class="container">
-    <h3>Home</h3>
+    <h3><%= q ? q : "Home" %> </h3>
     <%- include('../partials/flash')  %> 
         <div class="grid">
             <% arts.forEach(art => { %>

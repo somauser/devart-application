@@ -45,13 +45,7 @@ route.post('/login', passport.authenticate('local', {failureFlash: true, failure
 route.get('/logout', (userControllers.logOut));
 
 // users/:id
-route.get('/:id', async(req, res)=>{
-    const {id} = req.params;
-
-    const user = await User.findById(id).populate('arts');
-    console.log(user.arts);
-    res.render('users/show', {user, arts: user.arts});
-})
+route.get('/:id', userControllers.showUser);
 
 // GET user/:id/account
 route.get('/:id/account', async(req, res)=>{
@@ -60,33 +54,7 @@ route.get('/:id/account', async(req, res)=>{
 })
 
 // PUT users/:id update user
-route.put('/:id', auth.isLoggedin, upload.single('profileImage'), async(req, res)=>{
-    try{
-        const {id} = req.params
-        const {profileImage, bio} = req.body
-        // const {bio} = req.body;
-        const user = await User.findById(id);
-        // check if it's the user
-        if(!user.equals(req.user._id)){
-        // console.log('hi')
-        // res.flash('error', 'You do not have the permission!');
-        return res.send('no permission')
-      }
-      if(req.file){
-        user.Bio.profileImage.url = req.file.location,
-        user.Bio.profileImage.filename = req.file.key
-      }
-      console.log(req.file)
-      console.log(req.body)
-      user.Bio.text = bio;
-      await user.save();
-      res.redirect(`/users/${id}`);
-    } catch(err) {
-        console.log(err);
-        res.render('500');
-    }
-
-})
+route.put('/:id', auth.isLoggedin, upload.single('profileImage'), auth.isAuthortized, userControllers.updateUser)
 
 
 module.exports = route;

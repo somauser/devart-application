@@ -58,4 +58,32 @@ exports.logOut = async(req, res)=>{
     req.logout();
     // req.flash('success', 'Goodbye!');
     res.redirect('/arts');
-}
+};
+
+exports.showUser = async(req, res)=>{
+    const {id} = req.params;
+
+    const user = await User.findById(id).populate('arts');
+    console.log(user.arts);
+    res.render('users/show', {user, arts: user.arts});
+};
+
+exports.updateUser = async(req, res)=>{
+    try{
+        const {id} = req.params
+        const {profileImage, bio} = req.body
+
+      if(req.file){
+        user.Bio.profileImage.url = req.file.location,
+        user.Bio.profileImage.filename = req.file.key
+      }
+      console.log(req.file)
+      console.log(req.body)
+      user.Bio.text = bio;
+      await user.save();
+      res.redirect(`/users/${id}`);
+    } catch(err) {
+        console.log(err);
+        res.render('500');
+    }
+};
