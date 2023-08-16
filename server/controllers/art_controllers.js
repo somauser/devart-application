@@ -63,7 +63,7 @@ exports.showArts = async (req, res)=>{
         console.log(comments);
         res.render('arts/show', {art, arts: user.arts, comments});
     } catch(err){
-        res.render('500').status(500);
+        res.render('500');
     }
 
     // res.send(art)
@@ -75,12 +75,13 @@ exports.getIndex = async(req, res)=>{
       const {q} = req.query;
       // console.log(q)
       const arts = await Art.find({"meta.tags": q}).populate('user').sort({_id:-1}).limit(12);
-      res.render('arts/index', {arts, q: req.query.q});
       console.log(arts);
+      res.render('arts/index', {arts, q: req.query.q});
     }
     const arts = await Art.find({}).populate('user').sort({_id:-1}).limit(12);
+    console.log(arts);
     res.render('arts/index', {arts, q: req.query.q});
-    // res.send(arts[1].user.username)
+    // res.send('hello')
 }
 
 

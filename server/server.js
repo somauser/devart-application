@@ -22,12 +22,12 @@ var favicon = require('serve-favicon');
 // routers
 const userRoutes = require('./routes/users')
 const artRoutes = require('./routes/arts')
-const apisArtRoutes = require('./routes/apis_arts');
+// const apisArtRoutes = require('./routes/apis_arts');
 // session 
 sessionOptions = {
     resave: false,
     saveUninitialized: false,
-    secret:process.env.secret,
+    secret:process.env.s_secret,
 }
 
 app.use(session(sessionOptions))
@@ -49,8 +49,21 @@ app.engine('ejs', ejsMate);
 
 // database connection
 async function connect(){
-    mongoose.connect(process.env.mongoURI);
+    mongoose.connect(process.env.mongo_DB);
+   
 }
+const db = mongoose.connection;
+
+db.on('open', async () => {
+    Art.find({}, function(err, items) {
+        if(err) {
+            console.log(err);
+        } else {
+            console.log(items)
+        }
+    })
+});
+
 
 connect().then(res=>console.log('DB connected'))
     .catch(err=>console.log(err));
@@ -75,7 +88,7 @@ app.use((req, res, next)=>{
 
 app.use('/arts', artRoutes);
 app.use('/users', userRoutes);
-app.use('/apis/arts', apisArtRoutes);
+// app.use('/apis/arts', apisArtRoutes);
 
 app.get('/test', (req, res)=>{
   res.render('test')  
@@ -89,4 +102,5 @@ app.use((req, res, next) => {
 
 app.listen(port, ()=>{
     console.log(`app is running on port: ${port}`);
+    
 })

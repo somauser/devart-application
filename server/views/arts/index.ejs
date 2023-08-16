@@ -4,26 +4,28 @@
     <h3><%= q ? q : "Home" %> </h3>
     <%- include('../partials/flash')  %> 
         <div class="grid">
-            <% arts.forEach(art => { %>
-                <a href="/arts/<%= art._id %>">
-                <div class="grid-item art">
-                    <img class="img-fluid art__painting" src="<%= art.imageURL.url %>" alt="">
-                    <div class="art__overlay">
-                        <div class="art__overlay__content">
-                            <div class="art__title"><%= art.title %></div>
-                            <div class="art__creater">
-                                <img src="<%= art.user.Bio.profileImage.url %>" alt="" width="50px">    
-                                <%= art.user.username %>
-                                
+            <% if (arts) { %>
+                <% arts.forEach(art => { %>
+                    <a href="/arts/<%= art._id %>">
+                    <div class="grid-item art">
+                        <img class="img-fluid art__painting" src="<%= art.imageURL.url %>" alt="">
+                        <div class="art__overlay">
+                            <div class="art__overlay__content">
+                                <div class="art__title"><%= art.title %></div>
+                                <div class="art__creater">
+                                    <img src="<%= art.user.Bio.profileImage.url %>" alt="" width="50px">    
+                                    <%= art.user.username %>
+                                    
+                                </div>
+                                <span class="art__comments__count">
+                                    <i class="bi bi-chat"></i> <%= art.comments.length %>
+                                </span>
                             </div>
-                            <span class="art__comments__count">
-                                <i class="bi bi-chat"></i> <%= art.comments.length %>
-                            </span>
                         </div>
-                    </div>
-                </div> 
-            </a>
-            <% }) %>
+                    </div> 
+                </a>
+                <% }) %>
+            <% } %>
         </div>
 </div>
 

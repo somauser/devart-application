@@ -13,22 +13,22 @@ const Comment = require('../models/Comment');
 const User = require('../models/User');
 const { findByIdAndUpdate, findById } = require('../models/User');
 // https://www.youtube.com/watch?v=s1Tu0yKmDKU add public policy
-
 const s3AccessKey = process.env.S3_ACCESS_KEY
 const s3SecretKey = process.env.S3_SECRET_ACCESS_KEY
-const s3Buceket = process.env.S3_BUCKET_REGION
+const region = process.env.S3_BUCKET_REGION
+const s3Bucket = process.env.S3_BUCKET
 
 const s3 = new aws.S3({
     accessKeyId: s3AccessKey,
     secretAccessKey: s3SecretKey,
-    region: s3Buceket
+    region: region
 })
 
 const upload = multer({
     storage: multerS3({
         // s3 
         s3: s3,
-        bucket: "dev-app-clone-994214",
+        bucket: s3Bucket,
         metadata: function (req, file, cb) {
             cb(null, {fieldName: file.fieldname});
           },
@@ -47,16 +47,16 @@ route.get('/new', auth.isLoggedin, artControllers.getNew);
 
 
 // test deleteing 
-route.get('/test', async(req, res)=>{
+// route.get('/test', async(req, res)=>{
   
-  const user = await User.findById('6212ee4433f6875e8f4450d2')
-  user.arts.pull('6225ac69958158f26d8f69ca');
-  await user.save();
-  // User.findByIdAndUpdate('6212ee4433f6875e8f4450d2', { 
-  //   $pull:{arts: {_id: '6225ac69958158f26d8f69ca'}}
-  // }, {new: true});
-  res.send(user);
-})
+//   const user = await User.findById('6212ee4433f6875e8f4450d2')
+//   user.arts.pull('6225ac69958158f26d8f69ca');
+//   await user.save();
+//   // User.findByIdAndUpdate('6212ee4433f6875e8f4450d2', { 
+//   //   $pull:{arts: {_id: '6225ac69958158f26d8f69ca'}}
+//   // }, {new: true});
+//   res.send(user);
+// })
 
 // GET /arts/:id
 route.get('/:id', artControllers.showArts);

@@ -7,21 +7,22 @@ const { find, findById } = require('../models/User');
 const User = require('../models/User');
 const s3AccessKey = process.env.S3_ACCESS_KEY
 const s3SecretKey = process.env.S3_SECRET_ACCESS_KEY
-const s3Buceket = process.env.S3_BUCKET_REGION
+const region = process.env.S3_BUCKET_REGION
+const s3Bucket = process.env.S3_BUCKET
 const multer = require('multer')
 const multerS3 = require('multer-s3');
 const aws = require('aws-sdk');
 const s3 = new aws.S3({
     accessKeyId: s3AccessKey,
     secretAccessKey: s3SecretKey,
-    region: s3Buceket
+    region: region
 })
 
 const upload = multer({
     storage: multerS3({
         // s3 
         s3: s3,
-        bucket: "dev-app-clone-994214",
+        bucket: s3Bucket,
         metadata: function (req, file, cb) {
             cb(null, {fieldName: file.fieldname});
           },
