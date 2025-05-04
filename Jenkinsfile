@@ -71,6 +71,8 @@ stage('Cleanup Old Docker Images') {
         sh """
           ssh -i $KEYFILE -o StrictHostKeyChecking=no $SSH_USER@18.218.254.126 '
             docker image prune -a -f --filter "until=24h"
+            docker system prune -af
+            docker volume prune -f
           '
         """
       }
