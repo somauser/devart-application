@@ -19,7 +19,7 @@ pipeline {
         git(
           credentialsId: 'git',
           branch: 'main',
-          url: ${GIT_URL}
+          url: "${env.GIT_URL}"
         )
       }
     }

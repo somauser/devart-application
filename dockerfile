@@ -1,15 +1,14 @@
 FROM node:18
 
-# Set working directory
+# Set working directory in container
 WORKDIR /usr/src/app
 
 # Copy server directory only local container
-COPY ./package*.json ./server/
+COPY ./package*.json ./
 
 # change directory
 # Now copy rest of your app
-COPY ./ ./server
-WORKDIR /usr/src/app/server
+COPY ./ ./
 # install dependencies
 RUN npm install pm2 -g && npm install
 
