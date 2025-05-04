@@ -6,7 +6,7 @@ pipeline {
     IMAGE_TAG = 'latest'
     AWS_ACCESS_KEY_ID = credentials('JENKINS_ACCESS_KEY')
     AWS_SECRET_ACCESS_KEY = credentials('JENKINS_SECRET_ACCESS_KEY')
-    APP_NAME = 'helloearth.io/notdeviantart'
+    APP_NAME = 'helloearth-io-notdeviantart'
     GIT_URL = 'git@github.com:somauser/devart-application.git'
     PORT = 7098
   }
