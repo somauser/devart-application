@@ -29,13 +29,15 @@ exports.postArt = async (req, res, next)=>{
     user.arts.push(art);
     art.user = user;
     // adding tags to tags
-    tags_list = JSON.parse(tags);
-    console.log(tags_list);
-    if(tags_list){
-        tags_list.forEach((tag)=>{
-            art.meta.tags.push(tag.value)
-            console.log(tag.value);
-        })
+    if(tags){
+      tags_list = JSON.parse(tags);
+      // console.log(tags_list);
+      if(tags_list){
+          tags_list.forEach((tag)=>{
+              art.meta.tags.push(tag.value)
+              console.log(tag.value);
+          })
+      }
     }
     await user.save();
     await art.save();

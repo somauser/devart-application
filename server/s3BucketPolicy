@@ -1,0 +1,14 @@
+// this policy is to allow the app to access its s3 content
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadImages",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::devientart-clone-bucker-2025-helloearth-io/*"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+# build dockerfile 
+docker build -t helloearth.io/devart .
+
+
+docker run -d --name devart-app -p 7098:7098 helloearth.io/devart:latest 
