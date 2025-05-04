@@ -6,12 +6,11 @@ WORKDIR /usr/src/app
 # Copy server directory only local container
 COPY ./package*.json ./
 
-# change directory
-# Now copy rest of your app
-COPY ./ ./
 # install dependencies
 RUN npm install pm2 -g && npm install
 
+# Now copy rest of your app
+COPY ./ ./
 # Expose the port your app runs on
 EXPOSE 7098
 

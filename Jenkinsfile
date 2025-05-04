@@ -50,29 +50,32 @@ pipeline {
 stage('Deploy to EC2') {
   steps {
     withCredentials([sshUserPrivateKey(credentialsId: 'ec2-private-key', keyFileVariable: 'KEYFILE', usernameVariable: 'SSH_USER')]) {
-  sh '''
-    ssh -i "$KEYFILE" -o StrictHostKeyChecking=no $SSH_USER@18.218.254.126 '
-      docker pull $ECR_REPO:$IMAGE_TAG &&
-      docker stop $APP_NAME || true &&
-      docker rm $APP_NAME || true &&
-      docker run -d --name $APP_NAME -p $PORT:$PORT $ECR_REPO:$IMAGE_TAG
-    '
-  '''
-}
-    }
-}
-
-    stage('Cleanup Old Docker Images') {
-      steps {
-
-        sshagent(['ec2-ssh']) {
-          sh '''
-            ssh -o StrictHostKeyChecking=no ubuntu@18.218.254.126 '
-              docker image prune -a -f --filter "until=24h"
-            '
-          '''
-        }
+      script {
+        sh """
+          ssh -i $KEYFILE -o StrictHostKeyChecking=no $SSH_USER@18.218.254.126 '
+            docker pull ${ECR_REPO}:${IMAGE_TAG} &&
+            docker stop "${APP_NAME}" || true &&
+            docker rm "${APP_NAME}" || true &&
+            docker run -d --name "${APP_NAME}" -p ${PORT}:${PORT} ${ECR_REPO}:${IMAGE_TAG}
+          '
+        """
       }
     }
+  }
+}
+
+stage('Cleanup Old Docker Images') {
+  steps {
+    withCredentials([sshUserPrivateKey(credentialsId: 'ec2-private-key', keyFileVariable: 'KEYFILE', usernameVariable: 'SSH_USER')]) {
+      script {
+        sh """
+          ssh -i $KEYFILE -o StrictHostKeyChecking=no $SSH_USER@18.218.254.126 '
+            docker image prune -a -f --filter "until=24h"
+          '
+        """
+      }
+    }
+  }
+}
   }
 }
