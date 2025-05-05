@@ -56,7 +56,7 @@ stage('Deploy to EC2') {
             docker pull ${ECR_REPO}:${IMAGE_TAG} &&
             docker stop "${APP_NAME}" || true &&
             docker rm "${APP_NAME}" || true &&
-            docker run -d --name "${APP_NAME}" -p ${PORT}:${PORT} ${ECR_REPO}:${IMAGE_TAG}
+            docker run -d --env-file ~/env/notdeviantart/.env --name "${APP_NAME}" -p ${PORT}:${PORT} ${ECR_REPO}:${IMAGE_TAG} pm2-runtime server.js
           '
         """
       }

@@ -16,4 +16,4 @@ EXPOSE 7098
 
 # Run your app
 # Two ways to restart on failure 1. use docker restart policy 2. using PM2
-CMD ["node", "server.js"]  # or whatever your entry point is
+CMD ["pm2-runtime", "server.js"]  # or whatever your entry point is

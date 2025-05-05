@@ -3,3 +3,20 @@ docker build -t helloearth.io/devart .
 
 
 docker run -d --name devart-app -p 7098:7098 helloearth.io/devart:latest 
+
+
+docker run -d --name helloearth-io-notdeviantart -p 7098:7098 775253283993.dkr.ecr.us-east-2.amazonaws.com/helloearth/helloearth.io/notdeviantart:latest
+
+<!-- log in to ecr with aws configure -->
+aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 775253283993.dkr.ecr.us-east-2.amazonaws.com
+
+docker build -t 775253283993.dkr.ecr.us-east-2.amazonaws.com/helloearth/helloearth.io/notdeviantart:latest .
+
+docker tag 775253283993.dkr.ecr.us-east-2.amazonaws.com/helloearth/helloearth.io/notdeviantart:latest 775253283993.dkr.ecr.us-east-2.amazonaws.com/helloearth/helloearth.io/notdeviantart:20250504200229
+docker push 775253283993.dkr.ecr.us-east-2.amazonaws.com/helloearth/helloearth.io/notdeviantart:latest
+
+docker run -d --name helloearth-io-notdeviantart -p 7098:7098 775253283993.dkr.ecr.us-east-2.amazonaws.com/helloearth/helloearth.io/notdeviantart pm2-runtime server.js
+
+docker run --env-file ~/env/notdeviantart/.env -d --name helloearth-io-notdeviantart -p 7098:7098 775253283993.dkr.ecr.us-east-2.amazonaws.com/helloearth/helloearth.io/notdeviantart pm2-runtime server.js
+
+docker run --env-file .env -d --name helloearth-io-notdeviantart -p 7098:7098 775253283993.dkr.ecr.us-east-2.amazonaws.com/helloearth/helloearth.io/notdeviantart pm2-runtime server.js
