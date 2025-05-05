@@ -16,7 +16,10 @@ docker tag 775253283993.dkr.ecr.us-east-2.amazonaws.com/helloearth/helloearth.io
 docker push 775253283993.dkr.ecr.us-east-2.amazonaws.com/helloearth/helloearth.io/notdeviantart:latest
 
 docker run -d --name helloearth-io-notdeviantart -p 7098:7098 775253283993.dkr.ecr.us-east-2.amazonaws.com/helloearth/helloearth.io/notdeviantart pm2-runtime server.js
+n/sh
+docker run --env-file ~/env/notdeviantart/.env -d --name helloearth-io-notdeviantart -p 7098:7098 775253283993.dkr.ecr.us-east-2.amazonaws.com/helloearth/helloearth.io/notdeviantart pm2-runtime server.js
 
 docker run --env-file ~/env/notdeviantart/.env -d --name helloearth-io-notdeviantart -p 7098:7098 775253283993.dkr.ecr.us-east-2.amazonaws.com/helloearth/helloearth.io/notdeviantart pm2-runtime server.js
 
-docker run --env-file .env -d --name helloearth-io-notdeviantart -p 7098:7098 775253283993.dkr.ecr.us-east-2.amazonaws.com/helloearth/helloearth.io/notdeviantart pm2-runtime server.js
+docker exec -it my_container /bin/bash
+docker exec -it my_container /bin/sh
