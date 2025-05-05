@@ -41,7 +41,7 @@ route.post('/', userControllers.createUser);
 
 route.get('/login', userControllers.getLogin);
 
-route.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect:'/users/login'}), userControllers.login);
+route.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect:'/notdeviantart/users/login'}), userControllers.login);
 
 route.get('/logout', (userControllers.logOut));
 

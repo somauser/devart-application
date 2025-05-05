@@ -61,7 +61,7 @@ db.on('open', async () => {
         if(err) {
             console.log(err);
         } else {
-            console.log(items)
+            // console.log(items)
         }
     })
 });
@@ -85,6 +85,7 @@ app.use((req, res, next)=>{
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     res.locals.signedUser = req.user;
+    res.locals.BASE_PATH = basePath;
     next();
 })
 
@@ -105,4 +106,5 @@ app.use((req, res, next) => {
 app.listen(port, ()=>{
     console.log(`app is running on port: ${port}`);
     console.log(process.env.S3_ACCESS_KEY);
+    console.log(basePath)
 })

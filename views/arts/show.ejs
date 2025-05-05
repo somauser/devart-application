@@ -21,7 +21,7 @@
                 <!-- sugnedUser is the currentUser check if there is a signed user and if the user is the owner-->
                 <% if(signedUser && art.user.equals(signedUser._id))  {%> 
                 <div class="col-12 d-inline">
-                    <a href="/arts/<%= art._id %>/edit" class="btn btn-success">Edit</a>
+                    <a href="/notdeviantart/arts/<%= art._id %>/edit" class="btn btn-success">Edit</a>
                     <form action="/arts/<%= art._id %>?_method=DELETE" class="d-inline" method="POST">
                         <button class="btn btn-danger">Delete</button>
                     </form>
@@ -32,7 +32,7 @@
             <% if(!signedUser) { %> 
                 <h5>Please Log in to comment</h5>
             <% } else { %>
-                <form action="/arts/<%= art._id %>/comments" method="POST">
+                <form action="/notdeviantart/arts/<%= art._id %>/comments" method="POST">
                     <div class="form-group">
                         <label class='form-label' for="comment">Comment:</label>
                         <br>
@@ -63,7 +63,7 @@
             <div class="grid">
                 <% arts.forEach(art => { %>
                     <div class="grid-item-show">
-                        <a href="/arts/<%= art._id %>"><img src="<%= art.imageURL.url %>" alt="" class="img-fluid"></a>
+                        <a href="/notdeviantart/arts/<%= art._id %>"><img src="<%= art.imageURL.url %>" alt="" class="img-fluid"></a>
                     </div>
                 <% }) %>
             </div>

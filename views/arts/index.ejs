@@ -6,7 +6,7 @@
         <div class="grid">
             <% if (arts) { %>
                 <% arts.forEach(art => { %>
-                    <a href="/arts/<%= art._id %>">
+                    <a href="/notdeviantart/arts/<%= art._id %>">
                     <div class="grid-item art">
                         <img class="img-fluid art__painting" src="<%= art.imageURL.url %>" alt="">
                         <div class="art__overlay">

@@ -44,7 +44,7 @@ exports.postArt = async (req, res, next)=>{
     // console.log(req.body, req.file);
     // console.log(art);
     req.flash('success', 'Successfully posted art')
-    res.redirect(`/arts/${art._id}`);
+    res.redirect(`/notdeviantart/arts/${art._id}`);
     // res.send(req.body);
   } catch(err){
     console.log(err);
@@ -103,7 +103,7 @@ exports.createComment = async (req, res)=>{
     await comment.save();
     await user.save();
   
-    res.redirect(`/arts/${id}`);
+    res.redirect(`/notdeviantart/arts/${id}`);
   }
 
 // 6212ee4433f6875e8f4450d2
@@ -118,7 +118,7 @@ exports.deleteArts =  async(req, res)=>{
         const user = await User.findById(deletedArt.user._id);
         user.arts.pull(deletedArt._id);
         await user.save();
-        res.redirect('/arts')
+        res.redirect('/notdeviantart/arts')
     } catch(err){
       console.log(err)
       res.render('500')
@@ -154,7 +154,7 @@ exports.deleteArts =  async(req, res)=>{
       }
       }
       await updatedArt.save();
-      res.redirect(`/arts/${id}`);
+      res.redirect(`/notdeviantart/arts/${id}`);
     } catch(err) {
       console.log('err' + err);
       res.render('500');

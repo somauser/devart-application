@@ -9,7 +9,7 @@ const fontAwesomeSrc = process.env.fontAwesomeAPI;
 
 exports.getHome = async (req, res)=>{
     const {user} = req.params;
-    res.redirect('/arts');
+    res.redirect('/notdeviantart/arts');
 }
 
 exports.getNew = async(req,res )=>{
@@ -33,7 +33,7 @@ exports.createUser = async(req, res)=>{
         await registeredUser.save();
         // console.log(user);
         req.flash('success', 'User is created successfully!');
-        res.redirect('/users/login');
+        res.redirect('/notdeviantart/users/login');
         // res.send(req.body);
         } catch(e) {
             // if something wrong redirect the user
@@ -41,7 +41,7 @@ exports.createUser = async(req, res)=>{
             // console.log('an error occured')
             // console.log(e);
             req.flash('error', e.message);
-            res.redirect('/users/new');
+            res.redirect('/notdeviantart/users/new');
         }
 }
 
@@ -51,13 +51,13 @@ exports.getLogin = async(req, res)=>{
 
 exports.login = async(req, res)=>{
     req.flash('success', `Welcome ${req.user.username}!`)
-    res.redirect('/arts');
+    res.redirect('/notdeviantart/arts');
 }
 
 exports.logOut = async(req, res)=>{
     req.logout();
     // req.flash('success', 'Goodbye!');
-    res.redirect('/arts');
+    res.redirect('/notdeviantart/arts');
 };
 
 exports.showUser = async(req, res)=>{
@@ -81,7 +81,7 @@ exports.updateUser = async(req, res)=>{
       console.log(req.body)
       user.Bio.text = bio;
       await user.save();
-      res.redirect(`/users/${id}`);
+      res.redirect(`/notdeviantart/users/${id}`);
     } catch(err) {
         console.log(err);
         res.render('500');
