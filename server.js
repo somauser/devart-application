@@ -18,6 +18,7 @@ const multer = require('multer')
 const multerS3 = require('multer-s3');
 const aws = require('aws-sdk');
 var favicon = require('serve-favicon');
+const basePath = process.env.BASE_PATH || '/';
 
 // routers
 const userRoutes = require('./routes/users')
@@ -42,7 +43,6 @@ app.use(morgan('tiny'));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 
-const basePath = process.env.BASE_PATH || '/';
 app.use(basePath, express.static(path.resolve(__dirname,'public')));
 // app.use(express.static(path.join(__dirname,'public')));
 app.set('view engine', 'ejs');
@@ -88,11 +88,11 @@ app.use((req, res, next)=>{
     next();
 })
 
-app.use('/arts', artRoutes);
-app.use('/users', userRoutes);
+app.use(basePath +'/arts', artRoutes);
+app.use(basePath + '/users', userRoutes);
 // app.use('/apis/arts', apisArtRoutes);
 
-app.get('/test', (req, res)=>{
+app.get(basePath + '/test', (req, res)=>{
   res.render('test')  
 })
 
